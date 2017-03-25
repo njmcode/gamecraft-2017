@@ -1,2 +1,3 @@
-console.log('It works!')
+import Game from './js/game'
 
+window.game = new Game()
