@@ -15,6 +15,7 @@ const webpackConfig = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].bundle.js',
+    publicPath: 'http://localhost:8080/',
   },
   resolve: {
     root: path.resolve('./src'),
@@ -41,6 +42,10 @@ const webpackConfig = {
       {
         test: /p2\.js/,
         loader: 'expose-loader?p2',
+      },
+      {
+        test: /\.(jpg|png|gif)$/,
+        loader: 'file',
       },
     ],
   },

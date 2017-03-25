@@ -1,9 +1,14 @@
 import Phaser from 'phaser'
 
+import Player from '../actors/Player'
+
 class GameplayState extends Phaser.State {
 
   create () {
-    console.log('GAMEPLAY STATE CREATE')
+    this.add.image(0, 0, 'game-bg')
+
+    this.player = new Player(this.game, 300, 300)
+    this.add.existing(this.player)
   }
 
 }
