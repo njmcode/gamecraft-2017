@@ -1,0 +1,40 @@
+{
+  "name": "gamecraft-2017",
+  "version": "1.0.0",
+  "description": "Repo for my project at Belfast GameCraft 2017.",
+  "main": "index.js",
+  "dependencies": {
+    "phaser-ce": "^2.7.5"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-eslint": "^6.1.2",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.23.0",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2",
+    "es6-promise": "^4.1.0",
+    "eslint": "^3.1.1",
+    "eslint-config-standard": "^5.3.5",
+    "eslint-plugin-promise": "^2.0.0",
+    "eslint-plugin-standard": "^2.0.0",
+    "html-webpack-plugin": "^2.22.0"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --progress --colors",
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/njmcode/gamecraft-2017.git"
+  },
+  "author": "njmcode",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/njmcode/gamecraft-2017/issues"
+  },
+  "homepage": "https://github.com/njmcode/gamecraft-2017#readme"
+}
