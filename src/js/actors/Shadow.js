@@ -6,12 +6,12 @@ class Shadow extends Phaser.Sprite {
     super(game, x, y, 'shadow')
 
     // size/position
-    this.scale.setTo(3)
-    this.anchor.setTo(0.3, 0.6)
+    this.alpha = 0.5
+    this.anchor.setTo(0.5, 0.5)
   }
 
   update () {
-    this.visible = !this.visible
+    this.visible = (Math.abs(Math.sin(Date.now() * 0.26)) > 0.8)
   }
 }
 

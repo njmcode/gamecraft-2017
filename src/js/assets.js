@@ -5,7 +5,9 @@ import reporterEnemy1Img from 'assets/images/reporter-enemy.png'
 import reporterEnemy2Img from 'assets/images/reporter-enemy-2.png'
 import reporterEnemy3Img from 'assets/images/reporter-enemy-3.png'
 import reporterEnemy4Img from 'assets/images/reporter-enemy-4.png'
+import pageImg from 'assets/images/page.png'
 import gameBgImg from 'assets/images/game-bg.png'
+import shadowImg from 'assets/images/shadow.png'
 
 export const ASSETS = {
   // key, path
@@ -17,7 +19,9 @@ export const ASSETS = {
     ['reporter-enemy-2', reporterEnemy2Img],
     ['reporter-enemy-3', reporterEnemy3Img],
     ['reporter-enemy-4', reporterEnemy4Img],
+    ['page', pageImg],
     ['game-bg', gameBgImg],
+    ['shadow', shadowImg],
   ],
 }
 

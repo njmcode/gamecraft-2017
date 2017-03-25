@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import Shadow from './Shadow'
 import { getLineXFromY } from '../helpers/position'
 
 const STATE_APPROACHING = 'STATE_APPROACHING'
@@ -32,8 +33,12 @@ class Reporter extends Phaser.Sprite {
 
     // physics
     this.game.physics.enable(this, Phaser.Physics.ARCADE)
+    this.body.setSize(13, 5, 5, 24)
     this.speed = speed
     this._rndFactor = Math.random() * Date.now()
+
+    this.shadowSprite = new Shadow(this.game, 3, -2)
+    this.addChild(this.shadowSprite)
 
     // state
     this.isEnemy = isEnemy
@@ -49,9 +54,9 @@ class Reporter extends Phaser.Sprite {
 
     if (Math.abs(
         Math.sin((Date.now() + this._rndFactor) * 0.01)) > 0.8) {
-      this.position.y = this.initialY - 3
+      this.anchor.setTo(0.5, 1.02)
     } else {
-      this.position.y = this.initialY
+      this.anchor.setTo(0.5, 1)
     }
 
     switch (this.currentState) {
@@ -70,6 +75,9 @@ class Reporter extends Phaser.Sprite {
       default:
         break
     }
+
+    this.shadowSprite.update()
+    // this.game.debug.body(this)
   }
 
 }

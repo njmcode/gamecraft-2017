@@ -1,5 +1,9 @@
 import Phaser from 'phaser'
+import Page from './Page'
+import Shadow from './Shadow'
 import { getLineXFromY } from '../helpers/position'
+
+const FIRE_COOLDOWN = 800
 
 class Player extends Phaser.Sprite {
 
@@ -31,6 +35,14 @@ class Player extends Phaser.Sprite {
       },
     }
 
+    // shots
+    this._lastShotTime = null
+
+    this.shots = this.game.add.group()
+
+    this.shadowSprite = new Shadow(this.game, -3, -2)
+    this.addChild(this.shadowSprite)
+
     // input
     this.cursors = this.game.input.keyboard.createCursorKeys()
     this.actionButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
@@ -43,6 +55,9 @@ class Player extends Phaser.Sprite {
     }
     if (this.cursors.up.isDown) {
       this.body.velocity.y -= this.acceleration
+    }
+    if (this.actionButton.isDown) {
+      this.shoot()
     }
 
     // slight inertia
@@ -65,6 +80,8 @@ class Player extends Phaser.Sprite {
     }
 
     this._calcXPosition()
+
+    this.shadowSprite.update()
   }
 
   _calcXPosition () {
@@ -72,6 +89,23 @@ class Player extends Phaser.Sprite {
       this.limits.x.min, this.limits.y.min,
       this.limits.x.max, this.limits.y.max,
       this.position.y)
+  }
+
+  shoot () {
+    if (!this._lastShotTime ||
+      this.game.time.now - this._lastShotTime > FIRE_COOLDOWN) {
+      const shot = new Page(this.game,
+        this.position.x + 50,
+        this.position.y)
+      this.shots.add(shot)
+
+      this._lastShotTime = this.game.time.now
+
+      this.loadTexture('player-point')
+      this.game.time.events.add(200, () => {
+        this.loadTexture('player')
+      })
+    }
   }
 }
 

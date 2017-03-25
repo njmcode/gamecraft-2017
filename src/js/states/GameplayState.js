@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import RenderGroup from '../helpers/RenderGroup'
 
 import Player from '../actors/Player'
 import Reporter from '../actors/Reporter'
@@ -17,8 +18,8 @@ const REPORTER_SPEED = {
   MAX: 80,
 }
 const MAX_ACTIVE_REPORTERS = 20
-const REPORTER_MIN_Y = 220
-const REPORTER_MAX_Y = 440
+const REPORTER_MIN_Y = 230
+const REPORTER_MAX_Y = 420
 const REPORTER_Y_SPACING = 20
 
 class GameplayState extends Phaser.State {
@@ -34,6 +35,10 @@ class GameplayState extends Phaser.State {
     // reporters
     this.reporters = this.game.add.group()
 
+    this.sortGroup = new RenderGroup(this.game)
+    this.sortGroup.add(this.reporters)
+    this.sortGroup.add(this.player.shots)
+
     // state
     this.spawnWaiting = false
     this.currentState = STATE_GET_READY
@@ -44,7 +49,7 @@ class GameplayState extends Phaser.State {
   }
 
   update () {
-    this.reporters.sort('y', Phaser.Group.SORT_ASCENDING)
+    this.sortGroup.sort('y', Phaser.Group.SORT_ASCENDING)
 
     switch (this.currentState) {
       case STATE_GET_READY:
@@ -62,6 +67,10 @@ class GameplayState extends Phaser.State {
             )
           }
         }
+
+        // collisions
+        this.physics.arcade.collide(this.player.shots, this.reporters,
+          this.shotHitsReporter, null, this)
         break
       default:
         break
@@ -69,7 +78,6 @@ class GameplayState extends Phaser.State {
   }
 
   _spawnReporter () {
-    console.log('SPAWN REPORTER')
     const reporter = new Reporter(this.game, {
       x: this.game.world.width + (Math.random() * 100),
       y: snapToNearest(
@@ -84,6 +92,11 @@ class GameplayState extends Phaser.State {
     })
     this.reporters.add(reporter)
     this.spawnWaiting = false
+  }
+
+  shotHitsReporter (shot, reporter) {
+    reporter.kill()
+    shot.kill()
   }
 
 }
