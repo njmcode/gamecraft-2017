@@ -80,6 +80,7 @@ class GameplayState extends Phaser.State {
         REPORTER_SPEED.MIN,
         REPORTER_SPEED.MAX
       ),
+      isEnemy: (Math.random() > 0.5),
     })
     this.reporters.add(reporter)
     this.spawnWaiting = false

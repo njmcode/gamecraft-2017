@@ -18,13 +18,17 @@ const LIMIT_LINE = {
 
 class Reporter extends Phaser.Sprite {
 
-  constructor (game, { x, y, speed }) {
-    super(game, x, y, 'reporter')
+  constructor (game, { x, y, speed, isEnemy }) {
+    const spriteID = (isEnemy)
+      ? 'reporter-enemy-' + game.rnd.integerInRange(1, 4)
+      : 'reporter'
+    super(game, x, y, spriteID)
 
     // size/position
     this.scale.setTo(3)
     this.anchor.setTo(0.5, 1)
     this.initialY = y
+    this.targetXOffset = Math.random() * 100
 
     // physics
     this.game.physics.enable(this, Phaser.Physics.ARCADE)
@@ -32,6 +36,7 @@ class Reporter extends Phaser.Sprite {
     this._rndFactor = Math.random() * Date.now()
 
     // state
+    this.isEnemy = isEnemy
     this.currentState = STATE_APPROACHING
   }
 
@@ -52,7 +57,7 @@ class Reporter extends Phaser.Sprite {
     switch (this.currentState) {
       case STATE_APPROACHING:
         this.body.velocity.x = -this.speed
-        if (this.position.x <= targetX) {
+        if (this.position.x <= (targetX + this.targetXOffset)) {
           this.currentState = STATE_ASKING_QUESTION
         }
         break

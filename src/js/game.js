@@ -6,7 +6,7 @@ import GameplayState from './states/GameplayState'
 class Game extends Phaser.Game {
 
   constructor () {
-    super(740, 480, Phaser.AUTO)
+    super(740, 480, Phaser.AUTO, 'game-wrap')
 
     this.antialias = false
 

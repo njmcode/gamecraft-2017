@@ -11,8 +11,114 @@
             canvas {
                 border: 1px solid #666;
             }
+
+            #wrap {
+                display: inline-block;
+                text-align: center;
+                position: relative;
+            }
+
+            #ui {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+
+            #live {
+                position: absolute;
+                top: 10px;
+                left: 0;
+                padding: 5px;
+                background: #a00;
+                color: white;
+                font-weight: bold;
+            }
+
+            #live span {
+                animation: flash 1s steps(1, end) infinite;
+            }
+            @keyframes flash {
+                0% {
+                    opacity: 0;
+                }
+                50% {
+                    opacity: 1;
+                }
+                100% {
+                    opacity: 0;
+                }
+            }
+
+            #breaking {
+                position: absolute;
+                width: 250px;
+                bottom: 20px;
+                right: 0;
+                border: 1px solid #666;
+                color: black;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.3);
+            }
+
+            #breaking-main {
+                background: #600 linear-gradient(transparent, #300);
+                color: white;
+                font-weight: bold;
+                font-style: italic;
+                padding: 4px;
+            }
+
+            #breaking-sub {
+                background: white linear-gradient(45deg, transparent, rgba(0,0,0,0.2), transparent);
+                color: black;
+                font-weight: bold;
+                font-size: 12px;
+                padding: 4px;
+                border-top: 1px solid #666;
+            }
+
+            #ticker {
+                background: yellow;
+                color: black;
+                font-weight: bold;
+                font-size: 8px;
+                position: absolute;
+                bottom: 5px;
+                left: 0;
+                right: 0;
+                overflow: hidden;
+                height: 10px;
+            }
+
+            #ticker span {
+                text-align: left;
+                left: -20px;
+                position: absolute;
+                width: 400%;
+            }
         </style>
     </head>
     <body>
+        <div id="wrap">
+            <div id="ui">
+                <div id="live">
+                    <span>LIVE</span>
+                </div>
+                <div id="breaking">
+                    <div id="breaking-main">
+                        <span>BREAKING NEWS</span>
+                    </div>
+                    <div id="breaking-sub">
+                        <span>MAJOR INCIDENT OF FACTUAL REPORTING IN CAPITAL</span>
+                    </div>
+                </div>
+                <div id="ticker">
+                    <span>CANDIDATE PENIS SIZE A MAJOR FACTOR IN ELECTION SUCCESS, SAY EXPERTS -
+                    NO EVIDENCE OF CLIMATE CHANGE EXCEPT FOR HUGE HOLE IN OZONE LAYER CAUSED BY DEMOCRAT HOT AIR -</span>
+                </div>
+            </div>
+            <div id="game-wrap"></div>
+        </div>
     </body>
 </html>
