@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import { getLineXFromY } from '../helpers/position'
 
 class Player extends Phaser.Sprite {
 
@@ -21,13 +22,13 @@ class Player extends Phaser.Sprite {
     }
     this.limits = {
       x: {
-        min: 39,
-        max: 150,
+        min: 30,
+        max: 140,
       },
       y: {
         min: 210,
         max: 400,
-      }
+      },
     }
 
     // input
@@ -67,11 +68,10 @@ class Player extends Phaser.Sprite {
   }
 
   _calcXPosition () {
-    const xrange = this.limits.x.max - this.limits.x.min
-    const yrange = this.limits.y.max - this.limits.y.min
-
-    const perc = (this.position.y - this.limits.y.min) / yrange
-    this.position.x = this.limits.x.min + ((1 - perc) * xrange)
+    this.position.x = getLineXFromY(
+      this.limits.x.min, this.limits.y.min,
+      this.limits.x.max, this.limits.y.max,
+      this.position.y)
   }
 }
 
