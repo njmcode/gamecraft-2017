@@ -23,7 +23,7 @@ class Reporter extends Phaser.Sprite {
     const spriteID = (isEnemy)
       ? 'reporter-enemy-' + game.rnd.integerInRange(1, 4)
       : 'reporter'
-    super(game, x, y, spriteID)
+    super(game, x, (isEnemy ? y + 12 : y), spriteID)
 
     // size/position
     this.scale.setTo(3)
@@ -33,7 +33,7 @@ class Reporter extends Phaser.Sprite {
 
     // physics
     this.game.physics.enable(this, Phaser.Physics.ARCADE)
-    this.body.setSize(13, 5, 5, 24)
+    this.body.setSize(13, 4, 5, 25)
     this.speed = speed
     this._rndFactor = Math.random() * Date.now()
 
@@ -77,7 +77,7 @@ class Reporter extends Phaser.Sprite {
     }
 
     this.shadowSprite.update()
-    // this.game.debug.body(this)
+    //this.game.debug.body(this)
   }
 
 }

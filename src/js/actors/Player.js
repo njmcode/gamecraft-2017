@@ -3,7 +3,7 @@ import Page from './Page'
 import Shadow from './Shadow'
 import { getLineXFromY } from '../helpers/position'
 
-const FIRE_COOLDOWN = 800
+const FIRE_COOLDOWN = 500
 
 class Player extends Phaser.Sprite {
 
@@ -50,12 +50,14 @@ class Player extends Phaser.Sprite {
 
   update () {
     // add accel on input
+
     if (this.cursors.down.isDown) {
       this.body.velocity.y += this.acceleration
     }
     if (this.cursors.up.isDown) {
       this.body.velocity.y -= this.acceleration
     }
+
     if (this.actionButton.isDown) {
       this.shoot()
     }
@@ -73,10 +75,21 @@ class Player extends Phaser.Sprite {
     if (this.position.y < this.limits.y.min) {
       this.position.y = this.limits.y.min
       this.body.velocity.y = 0
+      this.anchor.setTo(0.5, 1)
     }
     if (this.position.y > this.limits.y.max) {
       this.position.y = this.limits.y.max
       this.body.velocity.y = 0
+      this.anchor.setTo(0.5, 1)
+    }
+
+    if (Math.abs(this.body.velocity.y) > 1) {
+      if (Math.abs(
+          Math.sin((Date.now()) * 0.01)) > 0.8) {
+        this.anchor.setTo(0.5, 1.03)
+      } else {
+        this.anchor.setTo(0.5, 1)
+      }
     }
 
     this._calcXPosition()

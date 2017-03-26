@@ -19,8 +19,10 @@ const REPORTER_SPEED = {
 }
 const MAX_ACTIVE_REPORTERS = 20
 const REPORTER_MIN_Y = 230
-const REPORTER_MAX_Y = 420
-const REPORTER_Y_SPACING = 20
+const REPORTER_MAX_Y = 410
+const REPORTER_Y_SPACING = 25
+
+const ENEMY_SPAWN_RATIO = 0.7
 
 class GameplayState extends Phaser.State {
 
@@ -88,7 +90,7 @@ class GameplayState extends Phaser.State {
         REPORTER_SPEED.MIN,
         REPORTER_SPEED.MAX
       ),
-      isEnemy: (Math.random() > 0.5),
+      isEnemy: (Math.random() < ENEMY_SPAWN_RATIO),
     })
     this.reporters.add(reporter)
     this.spawnWaiting = false
