@@ -19,8 +19,8 @@ const REPORTER_SPEED = {
 }
 const MAX_ACTIVE_REPORTERS = 20
 const REPORTER_MIN_Y = 230
-const REPORTER_MAX_Y = 410
-const REPORTER_Y_SPACING = 25
+const REPORTER_MAX_Y = 420
+const REPORTER_Y_SPACING = 30
 
 const ENEMY_SPAWN_RATIO = 0.7
 
@@ -97,7 +97,7 @@ class GameplayState extends Phaser.State {
   }
 
   shotHitsReporter (shot, reporter) {
-    reporter.kill()
+    reporter.die()
     shot.kill()
   }
 

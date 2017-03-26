@@ -26,12 +26,12 @@ class Player extends Phaser.Sprite {
     }
     this.limits = {
       x: {
-        min: 30,
-        max: 140,
+        min: 25,
+        max: 150,
       },
       y: {
-        min: 210,
-        max: 400,
+        min: 200,
+        max: 413,
       },
     }
 

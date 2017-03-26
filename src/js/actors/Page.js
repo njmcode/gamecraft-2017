@@ -30,7 +30,7 @@ class Page extends Phaser.Sprite {
     this.game.physics.enable(this, Phaser.Physics.ARCADE)
     this.body.velocity.x = SHOT_SPEED
 
-    this.body.setSize(6, 1, 14, 16)
+    this.body.setSize(6, 1, 14, 15)
     this.outOfBoundsKill = true
     this.checkWorldBounds = true
 

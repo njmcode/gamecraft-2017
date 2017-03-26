@@ -4,7 +4,7 @@ import { getLineXFromY } from '../helpers/position'
 
 const STATE_APPROACHING = 'STATE_APPROACHING'
 const STATE_ASKING_QUESTION = 'STATE_ASKING_QUESTION'
-const STATE_STOPPED = 'STATE_STOPPED'
+const STATE_DEAD = 'STATE_DEAD'
 
 const LIMIT_LINE = {
   x: {
@@ -37,7 +37,7 @@ class Reporter extends Phaser.Sprite {
     this.speed = speed
     this._rndFactor = Math.random() * Date.now()
 
-    this.shadowSprite = new Shadow(this.game, 3, -2)
+    this.shadowSprite = new Shadow(this.game, 3, -1)
     this.addChild(this.shadowSprite)
 
     // state
@@ -52,32 +52,51 @@ class Reporter extends Phaser.Sprite {
       this.position.y
     )
 
-    if (Math.abs(
-        Math.sin((Date.now() + this._rndFactor) * 0.01)) > 0.8) {
-      this.anchor.setTo(0.5, 1.02)
-    } else {
-      this.anchor.setTo(0.5, 1)
-    }
-
     switch (this.currentState) {
       case STATE_APPROACHING:
         this.body.velocity.x = -this.speed
+        this.doWalkAnim()
         if (this.position.x <= (targetX + this.targetXOffset)) {
           this.currentState = STATE_ASKING_QUESTION
         }
         break
       case STATE_ASKING_QUESTION:
         this.body.velocity.x = 0
+        this.doWalkAnim()
         break
-      case STATE_STOPPED:
-        this.body.velocity.x = 0
+      case STATE_DEAD:
+        this.body.velocity.x *= this.skidFactor || 1
         break
       default:
         break
     }
 
     this.shadowSprite.update()
-    //this.game.debug.body(this)
+    // this.game.debug.body(this)
+  }
+
+  doWalkAnim () {
+    if (Math.abs(
+        Math.sin((Date.now() + this._rndFactor) * 0.01)) > 0.8) {
+      this.anchor.setTo(0.5, 1.02)
+    } else {
+      this.anchor.setTo(0.5, 1)
+    }
+  }
+
+  die () {
+    this.alive = false
+    this.currentState = STATE_DEAD
+    this.anchor.x = 1
+    this.scale.x *= 0.9
+    this.body.velocity.x = 200
+    this.skidFactor = 0.9
+    this.angle = 90
+    this.removeChild(this.shadowSprite)
+    this.shadowSprite.kill()
+    this.game.time.events.add(500, () => {
+      this.kill()
+    })
   }
 
 }
